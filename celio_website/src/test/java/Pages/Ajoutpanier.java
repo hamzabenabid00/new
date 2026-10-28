@@ -1,5 +1,7 @@
 package Pages;
 
+import static org.junit.Assert.assertTrue;
+
 import java.util.List;
 
 import org.openqa.selenium.WebElement;
@@ -17,7 +19,8 @@ public class Ajoutpanier {
 	WebElement voirpanier ;
 	@FindBy(id="product-addtocart-button")
 	WebElement addbtn ;
-	
+	@FindBy(xpath="/html/body/main/div/section/div[2]/div/div[3]/form/div[1]/table/tbody/tr[1]/td[1]/div/strong/a")
+	WebElement textv;
 	public Ajoutpanier() {
 		PageFactory.initElements(Config.driver, this);
 	}
@@ -71,6 +74,11 @@ public class Ajoutpanier {
 	    }
 	    // 3. Add to cart only if both options exist
 	    addbtn.click();
+	}
+	public void verification(String text) {
+		voirpanier.click();
+		Config.attent(2);
+		assertTrue(textv.getText().contains(text));
 	}
 	
 	

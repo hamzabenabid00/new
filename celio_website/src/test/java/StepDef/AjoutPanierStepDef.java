@@ -25,7 +25,9 @@ public class AjoutPanierStepDef {
 	}
 	@Then("utlisateur est dirige vers la page panier et verifier lajout de produit {string}")
 	public void utlisateur_est_dirige_vers_la_page_panier_et_verifier_lajout_de_produit(String string) {
-	    
+		Ajoutpanier panier = new Ajoutpanier();
+		panier.verification(string);
+		Config.driver.quit();
 	}
 
 }
