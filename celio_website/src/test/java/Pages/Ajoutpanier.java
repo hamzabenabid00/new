@@ -45,11 +45,7 @@ public class Ajoutpanier {
 	        }
 	    }
 
-	    if (!couleurTrouvee) {
-	        throw new RuntimeException("Couleur inexistante : " + ccouleur);
-	    }
-
-	    // 2. Select the size
+	   
 	    for (WebElement taille : tailles) {
 
 	        String sizeName = taille.getAttribute("option-label");
@@ -69,9 +65,6 @@ public class Ajoutpanier {
 	        }
 	    }
 
-	    if (!tailleTrouvee) {
-	        throw new RuntimeException("Taille inexistante : " + ttailles);
-	    }
 	    // 3. Add to cart only if both options exist
 	    addbtn.click();
 	}

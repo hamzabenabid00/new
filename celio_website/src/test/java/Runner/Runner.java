@@ -7,7 +7,7 @@ import io.cucumber.junit.CucumberOptions;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
-    features = "src/test/resources/features/ajoutpanier.feature",
+    features = "src/test/resources/features/homepage.feature",
     glue = "StepDef",
     plugin = {
         "pretty",

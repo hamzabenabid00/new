@@ -1,0 +1,92 @@
+package Pages;
+
+import static org.junit.Assert.assertTrue;
+
+import java.time.Duration;
+import java.util.List;
+
+import org.junit.Assert;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import Helper.Config;
+
+public class PageAccueil {
+	@FindBy(xpath="/html/body/main/div/header/div[2]/div/div/div/div[1]/div/div[1]/nav/ul/li/a")
+	List<WebElement>menus;
+	@FindBy(xpath="/html/body/main/div/header/div[2]/div/div/div/div[1]/div/div[1]/nav/ul/li[2]/ul/li/div/div/div[1]/ul/li/a")
+	List<WebElement>submenus;
+	@FindBy(xpath="/html/body/main/div/div[2]/div/ul/li[3]")
+	WebElement linkverif ;
+	
+	public PageAccueil() {
+		PageFactory.initElements(Config.driver, this);
+		}
+	public void  clickonmune(String menutitle , String submenutitle) {
+		 WebDriverWait wait = new WebDriverWait(
+		            Config.driver, Duration.ofSeconds(10)
+		        );
+
+		        Actions action = new Actions(Config.driver);
+
+		        // Wait for the menus
+		        wait.until(ExpectedConditions.visibilityOfAllElements(menus));
+
+		        WebElement menu = null;
+
+		        for (WebElement m : menus) {
+		            if (m.getText().trim().equalsIgnoreCase(menutitle)) {
+		                menu = m;
+		                break;
+		            }
+		        }
+
+		        // Fail if the menu does not exist
+		        Assert.assertNotNull(
+		            "Menu not found: " + menutitle, menu
+		        );
+
+		        action.moveToElement(menu).perform();
+
+		        // Wait for the submenus to become visible
+		        wait.until(ExpectedConditions.visibilityOfAllElements(submenus));
+
+		        WebElement submenu = null;
+
+		        for (WebElement s : submenus) {
+		            if (s.getText().trim().equalsIgnoreCase(submenutitle)) {
+		                submenu = s;
+		                break;
+		            }
+		        }
+
+		        // Fail if the submenu does not exist
+		        Assert.assertNotNull(
+		            "Submenu not found: " + submenutitle, submenu
+		        );
+
+		        wait.until(ExpectedConditions.elementToBeClickable(submenu));
+		        submenu.click();
+		
+	}
+	
+
+    public void verification(String expectedText) {
+
+        WebDriverWait wait = new WebDriverWait(
+            Config.driver, Duration.ofSeconds(10)
+        );
+
+        wait.until(ExpectedConditions.visibilityOf(linkverif));
+
+        Assert.assertTrue(  
+            linkverif.getText().contains(expectedText)
+        );
+    }
+	
+
+}
