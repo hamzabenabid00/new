@@ -1,11 +1,10 @@
 package Pages;
 
-import static org.junit.Assert.assertTrue;
-
 import java.time.Duration;
 import java.util.List;
 
 import org.junit.Assert;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
@@ -31,47 +30,45 @@ public class PageAccueil {
 		            Config.driver, Duration.ofSeconds(10)
 		        );
 
-		        Actions action = new Actions(Config.driver);
+	        Actions action = new Actions(Config.driver);
 
-		        // Wait for the menus
-		        wait.until(ExpectedConditions.visibilityOfAllElements(menus));
+        // Wait for the menus to be visible and available
+        wait.until(ExpectedConditions.visibilityOfAllElements(menus));
 
-		        WebElement menu = null;
+        WebElement menu = null;
 
-		        for (WebElement m : menus) {
-		            if (m.getText().trim().equalsIgnoreCase(menutitle)) {
-		                menu = m;
-		                break;
-		            }
-		        }
+        for (WebElement m : menus) {
+            if (m.getText() != null && m.getText().trim().equalsIgnoreCase(menutitle)) {
+                menu = m;
+                break;
+            }
+        }
 
-		        // Fail if the menu does not exist
-		        Assert.assertNotNull(
-		            "Menu not found: " + menutitle, menu
-		        );
+        if (menu == null) {
+            throw new NoSuchElementException("Menu not found: " + menutitle);
+        }
 
-		        action.moveToElement(menu).perform();
+        action.moveToElement(menu).perform();
 
-		        // Wait for the submenus to become visible
-		        wait.until(ExpectedConditions.visibilityOfAllElements(submenus));
+        // Wait for the submenus to become visible
+        wait.until(ExpectedConditions.visibilityOfAllElements(submenus));
 
-		        WebElement submenu = null;
+        WebElement submenu = null;
 
-		        for (WebElement s : submenus) {
-		            if (s.getText().trim().equalsIgnoreCase(submenutitle)) {
-		                submenu = s;
-		                break;
-		            }
-		        }
+        for (WebElement s : submenus) {
+            if (s.getText() != null && s.getText().trim().equalsIgnoreCase(submenutitle)) {
+                submenu = s;
+                break;
+            }
+        }
 
-		        // Fail if the submenu does not exist
-		        Assert.assertNotNull(
-		            "Submenu not found: " + submenutitle, submenu
-		        );
+        if (submenu == null) {
+            throw new NoSuchElementException("Submenu not found: " + submenutitle);
+        }
 
-		        wait.until(ExpectedConditions.elementToBeClickable(submenu));
-		        submenu.click();
-		
+        wait.until(ExpectedConditions.elementToBeClickable(submenu));
+        submenu.click();
+	
 	}
 	
 
