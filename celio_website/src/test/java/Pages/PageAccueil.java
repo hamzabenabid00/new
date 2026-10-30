@@ -4,6 +4,7 @@ import java.time.Duration;
 import java.util.List;
 
 import org.junit.Assert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -20,55 +21,28 @@ public class PageAccueil {
 	@FindBy(xpath="/html/body/main/div/header/div[2]/div/div/div/div[1]/div/div[1]/nav/ul/li[2]/ul/li/div/div/div[1]/ul/li/a")
 	List<WebElement>submenus;
 	@FindBy(xpath="/html/body/main/div/div[2]/div/ul/li[3]")
+	
 	WebElement linkverif ;
 	
 	public PageAccueil() {
 		PageFactory.initElements(Config.driver, this);
 		}
 	public void  clickonmune(String menutitle , String submenutitle) {
-		 WebDriverWait wait = new WebDriverWait(
+		WebDriverWait wait = new WebDriverWait(
 		            Config.driver, Duration.ofSeconds(10)
 		        );
 
-	        Actions action = new Actions(Config.driver);
+		String normalizedMenu = menutitle.trim();
+		String normalizedSubmenu = submenutitle.trim();
 
-        // Wait for the menus to be visible and available
-        wait.until(ExpectedConditions.visibilityOfAllElements(menus));
+		By menuLocator = By.xpath("//nav//a[normalize-space()=\'" + normalizedMenu + "\']");
+		WebElement menu = wait.until(ExpectedConditions.visibilityOfElementLocated(menuLocator));
 
-        WebElement menu = null;
+		new Actions(Config.driver).moveToElement(menu).perform();
 
-        for (WebElement m : menus) {
-            if (m.getText() != null && m.getText().trim().equalsIgnoreCase(menutitle)) {
-                menu = m;
-                break;
-            }
-        }
-
-        if (menu == null) {
-            throw new NoSuchElementException("Menu not found: " + menutitle);
-        }
-
-        action.moveToElement(menu).perform();
-
-        // Wait for the submenus to become visible
-        wait.until(ExpectedConditions.visibilityOfAllElements(submenus));
-
-        WebElement submenu = null;
-
-        for (WebElement s : submenus) {
-            if (s.getText() != null && s.getText().trim().equalsIgnoreCase(submenutitle)) {
-                submenu = s;
-                break;
-            }
-        }
-
-        if (submenu == null) {
-            throw new NoSuchElementException("Submenu not found: " + submenutitle);
-        }
-
-        wait.until(ExpectedConditions.elementToBeClickable(submenu));
-        submenu.click();
-	
+		By submenuLocator = By.xpath("//nav//a[normalize-space()=\'" + normalizedSubmenu + "\']");
+		WebElement submenu = wait.until(ExpectedConditions.elementToBeClickable(submenuLocator));
+		submenu.click();
 	}
 	
 
