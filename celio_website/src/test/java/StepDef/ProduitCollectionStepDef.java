@@ -21,7 +21,7 @@ public class ProduitCollectionStepDef {
     @When("lutilisateur clique sur le produit {string}")
     public void lutilisateur_clique_sur_le_produit(String nomProduit) {
         ProduitCollection produit = new ProduitCollection();
-        produit.clickOnProduct(nomProduit);
+        produit.findproduct(nomProduit);
     }
 
     @Then("utlisateur est redirige vers la page produit {string}")
