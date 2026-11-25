@@ -1,7 +1,5 @@
 package StepDef;
 
-import org.openqa.selenium.firefox.FirefoxDriver;
-
 import Helper.Config;
 import Helper.Utlis;
 import Pages.ProduitCollection;
@@ -13,7 +11,7 @@ public class ProduitCollectionStepDef {
 
     @Given("utilisateur est sur la page collection")
     public void utilisateur_est_sur_la_page_collection() throws Exception {
-        Config.driver = new FirefoxDriver();
+    	Config.openBrowser();
         Config.maxwin();
         Config.driver.get(Utlis.getProperty("productcollection"));
     }

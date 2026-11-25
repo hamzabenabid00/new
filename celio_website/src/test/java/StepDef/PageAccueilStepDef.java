@@ -1,7 +1,5 @@
 package StepDef;
 
-import org.openqa.selenium.firefox.FirefoxDriver;
-
 import Helper.Config;
 import Helper.Utlis;
 import Pages.PageAccueil;
@@ -12,7 +10,7 @@ import io.cucumber.java.en.When;
 public class PageAccueilStepDef {
 	@Given("utlisateur est dans la page  daccueil")
 	public void utlisateur_est_dans_la_page_daccueil() throws Exception {
-		Config.driver = new FirefoxDriver();
+		Config.openBrowser();
 		Config.maxwin();
 		Config.driver.get(Utlis.getProperty("homepage"));
 	}

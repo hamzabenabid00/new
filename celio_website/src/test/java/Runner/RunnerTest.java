@@ -14,6 +14,6 @@ import io.cucumber.junit.CucumberOptions;
         "html:target/cucumber-report.html",
     }
 )
-public class Runner {
+public class RunnerTest {
 
 }
