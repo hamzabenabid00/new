@@ -1,7 +1,3 @@
-# Files/folders excluded from the Docker build context.
-# They are NOT copied into the image, which makes builds faster and the
-# image smaller. (None of these are needed to compile or run the tests.)
-
 target/
 .git/
 .gitignore
